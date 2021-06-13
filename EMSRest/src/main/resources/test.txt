@@ -79,7 +79,7 @@ Output :
 
 ------------------------------------------------- 
 
-Post : UPDATE EMPLOYEE DETAILS OF GIVEN ID - Updating salary
+Put : UPDATE EMPLOYEE DETAILS OF GIVEN ID - Updating salary
 
 URL : http://localhost:8080/api/employee/1
 
