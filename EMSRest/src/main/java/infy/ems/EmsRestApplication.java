@@ -8,7 +8,7 @@ public class EmsRestApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EmsRestApplication.class, args);
-		System.out.println("Employee Mangement Started");
+		System.out.println("Employee Mangement Started. Check log/ErrorLog.log for error.");
 	}
 
 }

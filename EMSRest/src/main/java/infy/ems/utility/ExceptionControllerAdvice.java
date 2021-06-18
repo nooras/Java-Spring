@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -48,6 +47,8 @@ public class ExceptionControllerAdvice
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	//when data is missing
+
 	@ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
 	public ResponseEntity<ErrorInfo> validatorExceptionHandler(Exception exception)
 	{
@@ -56,10 +57,11 @@ public class ExceptionControllerAdvice
 		if (exception instanceof MethodArgumentNotValidException)
 		{
 			MethodArgumentNotValidException manvException = (MethodArgumentNotValidException) exception;
+
 			errorMsg = manvException.getBindingResult()
 					.getAllErrors()
 					.stream()
-					.map(ObjectError::getDefaultMessage)
+					.map(x -> x.getDefaultMessage())
 					.collect(Collectors.joining(", "));
 
 		}
