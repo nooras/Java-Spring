@@ -1,0 +1,118 @@
+---------------------------------------------------
+EXTENDED ASSIGMNET
+---------------------------------------------------
+
+Validation Case
+
+---------------------------------------------------
+POST
+---------------------------------------------------
+
+Post : ADD EMPLOYEE
+
+URL : http://localhost:8080/api/employee
+
+Input :
+{
+        "name": null,
+        "role": "System Engineer",
+        "isPermanent": true,
+        "salary": 20000.00
+}
+
+Output:
+{
+    "errorMessage": "Please provide employee name.",
+    "errorCode": 400
+}
+
+---------------------------------------------------
+Post : ADD EMPLOYEE
+
+URL : http://localhost:8080/api/employee
+
+Input :
+ {
+        "name": null,
+        "role": null,
+        "isPermanent": true,
+        "salary": 20000.00
+}  
+
+Output:
+{
+    "errorMessage": "Please provide employee role., Please provide employee name.",
+    "errorCode": 400
+}
+
+---------------------------------------------------
+Post : ADD EMPLOYEE
+
+URL : http://localhost:8080/api/employee
+
+Input :
+  {
+        "name": null,
+        "role": null,
+        "isPermanent": null,
+        "salary": null
+}   
+
+Output:
+{
+    "errorMessage": "Please provide employee name., Please provide employee is permanent or not (true/false)., Please provide employee salary., Please provide employee role.",
+    "errorCode": 400
+}
+
+
+
+---------------------------------------------------
+GET
+---------------------------------------------------
+
+GET : GET ALL PERMANENT EMPLOYEE WITH SALARY ABOVE - When no data related to condition
+
+URL : http://localhost:8080/api/employee/permanentstaff?salary=20000&permanent=true
+
+Output:
+{
+    "errorMessage": "Permanent Employee details not found with given condition.",
+    "errorCode": 400
+}
+---------------------------------------------------
+GET : GET ALL PERMANENT EMPLOYEE WITH SALARY ABOVE - When data present
+
+URL : http://localhost:8080/api/employee/permanentstaff?salary=20000&permanent=true
+
+Output:
+[
+    {
+        "employeeId": 3,
+        "name": "Alex",
+        "role": "System Engineer",
+        "isPermanent": true,
+        "salary": 20000.00
+    }
+]
+
+---------------------------------------------------
+DELETE
+---------------------------------------------------
+
+
+DELETE : DELETE EMPLOPYEE WITH ID
+
+URL : http://localhost:8080/api/employee/1
+
+Output:
+Employee Deleted successfully : 1
+
+---------------------------------------------------
+
+DELETE : DELETE ALL EMPLOYEE
+
+URL : http://localhost:8080/api/employee/deleteall
+
+Output:
+All Employee Deleted successfully
+

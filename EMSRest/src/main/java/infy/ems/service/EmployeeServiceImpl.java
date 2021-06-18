@@ -99,4 +99,37 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
 	}
 
+	//get all permanent employee with salary above range
+	@Override
+	public List<EmployeeDTO> getAllPermanetEmployeeWithSalaryAbove(BigDecimal salary, Boolean isPermanent) throws EMSException{
+		List<Employee> employees = employeeRepository.findByIsPermanetAndSalary(salary, isPermanent);
+		List<EmployeeDTO> emplDTOList = new ArrayList<>();
+		employees.forEach(employee -> {
+			EmployeeDTO employeeDTO = new EmployeeDTO();
+			employeeDTO.setEmployeeId(employee.getEmployeeId());
+			employeeDTO.setName(employee.getName());
+			employeeDTO.setRole(employee.getRole());
+			employeeDTO.setIsPermanent(employee.getIsPermanent());
+			employeeDTO.setSalary(employee.getSalary());
+			emplDTOList.add(employeeDTO);
+		});
+		if(emplDTOList.isEmpty()) {
+			throw new EMSException("Service.NO_EMPLOYEES_WITH_CONDITION");
+		}
+		return emplDTOList;
+	}
+
+	// Delete customer with employee id
+	@Override
+	public void deleteCustomer(Long id) throws EMSException {
+		Optional<Employee> customer = employeeRepository.findById(id);
+		customer.orElseThrow(() -> new EMSException("Service.NO_EMPLOYEE_DATA"));
+		employeeRepository.deleteById(id);
+	}
+
+	//Delete all employee
+	@Override
+	public void deleteCustomers() throws EMSException {
+		employeeRepository.deleteAll();
+	}
 }

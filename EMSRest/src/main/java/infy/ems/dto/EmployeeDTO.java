@@ -2,14 +2,25 @@ package infy.ems.dto;
 
 import java.math.BigDecimal;
 
-//Employee DTO Class
+import javax.validation.constraints.NotNull;
+
+//Employee DTO Class for Validation
 public class EmployeeDTO {
 
 	private Long employeeId;
+
+	@NotNull(message="{employee.name.absent}")  //Checks that property is not null or empty
 	private String name;
+
+	@NotNull(message="{employee.role.absent}")
 	private String role;
+
+	@NotNull(message="{employee.isPermanent.absent}")
 	private Boolean isPermanent;
+
+	@NotNull(message="{employee.salary.absent}")
 	private BigDecimal salary;
+
 	public Long getEmployeeId() {
 		return employeeId;
 	}
