@@ -1,0 +1,209 @@
+POST 
+--------------------------------------------------
+Case : Add User
+
+URL : http://localhost:8080/api/user
+
+Input :
+{
+        "id": "123xyz",
+        "fName": "abc",
+        "lName": "xyz",
+        "email": "abc@gmail.com",
+        "pincode": 231654,
+        "birthDate": "12-MAR-2009",
+        "isActive": true
+}  
+
+Output:
+User added successfully : 123xyz
+
+--------------------------------------------------
+Case : Add User with same user id
+
+URL : http://localhost:8080/api/user
+
+Input :
+{
+        "id": "123xyz",
+        "fName": "abc",
+        "lName": "xyz",
+        "email": "abc@gmail.com",
+        "pincode": 231654,
+        "birthDate": "12-MAR-2009",
+        "isActive": true
+}  
+
+Output:
+{
+    "resMsg": "User id already present. Please add different id.",
+    "userId": "123xyz",
+    "valError": [
+        {
+            "code": 400,
+            "field": "null",
+            "validationMsg": "Please try again!"
+        }
+    ]
+}
+--------------------------------------------------
+Case : Add User with different id but same email id.
+
+URL : http://localhost:8080/api/user
+
+Input :
+ {
+        "id": "1234xyz",
+        "fName": "abc",
+        "lName": "xyz",
+        "email": "abc@gmail.com",
+        "pincode": 231654,
+        "birthDate": "12-MAR-2009",
+        "isActive": true
+}  
+
+Output:
+{
+    "resMsg": "Primary key or Unique constraint failed.",
+    "userId": "ID not created or not found!!",
+    "valError": [
+        {
+            "code": 400,
+            "field": "UserID or Email",
+            "validationMsg": "Unique index or primary key violation in email field"
+        }
+    ]
+}
+--------------------------------------------------
+Case : Add User with some null value
+
+URL : http://localhost:8080/api/user
+
+Input :
+ {
+        "id": null,
+        "fName": null,
+        "lName": "xyz",
+        "email": "abc@gmail.com",
+        "pincode": 231654,
+        "birthDate": "12-MAR-2009",
+        "isActive": true
+}    
+
+Output:
+{
+    "resMsg": "Validation failed for some argument.",
+    "userId": "ID not created or not found!!",
+    "valError": [
+        {
+            "code": 400,
+            "field": "fName, id",
+            "validationMsg": "Please provide First Name., Please provide User id."
+        }
+    ]
+}
+--------------------------------------------------
+Case : Add User with all null value
+
+URL : http://localhost:8080/api/user
+
+Input :
+ {
+        "id": null,
+        "fName": null,
+        "lName": null,
+        "email": null,
+        "pincode": null,
+        "birthDate": null,
+        "isActive": null
+}     
+
+Output:
+{
+    "resMsg": "Validation failed for some argument.",
+    "userId": "ID not created or not found!!",
+    "valError": [
+        {
+            "code": 400,
+            "field": "fName, isActive, lName, birthDate, id, email, pincode",
+            "validationMsg": "Please provide First Name., Please provide User is active or not(True/False)., Please provide Last Name., Please provide correct Birth date., Please provide User id., Please provide Email., Please provide Pin code."
+        }
+    ]
+}
+--------------------------------------------------
+Case : Add User with future birth date.
+
+URL : http://localhost:8080/api/user
+
+Input :
+  {
+        "id": "1234xyz",
+        "fName": "abc",
+        "lName": "xyz",
+        "email": "abcxyz@gmail.com",
+        "pincode": 231654,
+        "birthDate": "12-MAR-2030",
+        "isActive": true
+}       
+
+Output:
+{
+    "resMsg": "Validation failed for some argument.",
+    "userId": "ID not created or not found!!",
+    "valError": [
+        {
+            "code": 400,
+            "field": "birthDate",
+            "validationMsg": "DOB Shouldn't be future date"
+        }
+    ]
+}
+--------------------------------------------------
+PUT 
+--------------------------------------------------
+Case : Update User birthdate and pincode with userid path varible
+
+URL : http://localhost:8080/api/user/123xyz
+
+Input :
+ {
+       
+        "birthDate": "12-MAR-2000",
+        "pincode": 123456
+}   
+
+Output:
+User updated successfully : 123xyz
+--------------------------------------------------
+Case : Update User with future date.
+
+URL : http://localhost:8080/api/user/123xyz
+
+Input :
+  {
+       
+        "birthDate": "12-MAR-2030",
+        "pincode": 123654
+}    
+
+Output:
+{
+    "resMsg": "Input Date of Birth is future Date. Please check once and add correct DOB.",
+    "userId": "123xyz",
+    "valError": [
+        {
+            "code": 400,
+            "field": "null",
+            "validationMsg": "Please try again!"
+        }
+    ]
+}
+--------------------------------------------------
+DELETE 
+--------------------------------------------------
+Case : Delete User i.e. deactivate user
+
+URL : http://localhost:8080/api/user/123xyz
+
+Output:
+User deactivated successfully : 123xyz

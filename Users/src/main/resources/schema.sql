@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS EMPLOYEE;  
+CREATE TABLE User(  
+Id VARCHAR(20) PRIMARY KEY,  
+fname VARCHAR(50),
+lname VARCHAR(50),
+email VARCHAR(50) unique,
+pincode BIGINT,
+birthDate DATE,
+isActive BOOLEAN 
+);
